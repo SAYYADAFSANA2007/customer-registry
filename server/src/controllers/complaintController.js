@@ -3,7 +3,8 @@ const Complaint = require('../models/complaintModel')
 const createComplaint = async (req, res) => {
   try {
     const { title, description } = req.body
-    const complaint = await Complaint.create({ title, description, customer: req.body.customerId || '000000000000000000000000' })
+    const customerId = req.query.customerId || req.body.customerId
+    const complaint = await Complaint.create({ title, description, customer: customerId })
     res.status(201).json({ message: 'Complaint created', complaint })
   } catch (err) {
     res.status(500).json({ message: err.message })
@@ -12,7 +13,7 @@ const createComplaint = async (req, res) => {
 
 const getComplaints = async (req, res) => {
   try {
-    const complaints = await Complaint.find()
+    const complaints = await Complaint.find({ customer: req.query.customerId })
     res.json(complaints)
   } catch (err) {
     res.status(500).json({ message: err.message })

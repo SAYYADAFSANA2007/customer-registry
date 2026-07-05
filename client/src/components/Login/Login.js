@@ -5,25 +5,40 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState('customer')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:8000/api/customers/login', { email, password })
+      const res = await axios.post('http://localhost:8000/api/auth/login', { email, password, role })
       localStorage.setItem('token', res.data.token)
-      navigate('/customer')
+      localStorage.setItem('role', res.data.role)
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('role', res.data.role)
+      localStorage.setItem('userId', res.data.userId)
+      if (res.data.role === 'customer') navigate('/customer')
+      else if (res.data.role === 'agent') navigate('/agent')
+      else if (res.data.role === 'admin') navigate('/admin')
     } catch (err) {
-      setError('Invalid email or password')
+      setError('Invalid credentials')
     }
   }
 
   return (
     <div style={{ maxWidth: '400px', margin: '100px auto', padding: '2rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Customer Login</h2>
+      <h2>Customer Registry Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleLogin}>
+        <div style={{ marginBottom: '1rem' }}>
+          <label>Role</label>
+          <select value={role} onChange={e => setRole(e.target.value)} style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}>
+            <option value='customer'>Customer</option>
+            <option value='agent'>Agent</option>
+            <option value='admin'>Admin</option>
+          </select>
+        </div>
         <div style={{ marginBottom: '1rem' }}>
           <label>Email</label>
           <input type='email' value={email} onChange={e => setEmail(e.target.value)} required style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />

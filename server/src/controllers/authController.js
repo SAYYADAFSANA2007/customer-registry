@@ -27,7 +27,7 @@ const login = async (req, res) => {
     if (!match) return res.status(400).json({ message: 'Invalid password' })
 
     const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET, { expiresIn: '1d' })
-    res.json({ message: 'Login successful', token, role })
+    res.json({ message: 'Login successful', token, role, userId: user._id })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

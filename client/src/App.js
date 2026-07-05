@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import CustomerDashboard from './pages/CustomerDashboard'
-import AdminDashboard from './pages/AdminDashboard'
-import AgentDashboard from './pages/AgentDashboard'
+import Login from './components/Login/Login'
+import Register from './components/Registration/Register'
+import CustomerDashboard from './components/User/CustomerDashboard'
+import AdminDashboard from './components/Admin/AdminDashboard'
+import AgentDashboard from './components/Agent/AgentDashboard'
 
 function App() {
   return (

@@ -16,12 +16,19 @@ const complaintSchema = new mongoose.Schema({
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Customer',
-    required: true
+    ref: 'Customer'
   },
   agent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Agent'
+  },
+  feedback: {
+    type: String
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5
   }
 }, { timestamps: true })
 
