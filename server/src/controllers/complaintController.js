@@ -28,5 +28,12 @@ const updateComplaint = async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 }
-
-module.exports = { createComplaint, getComplaints, updateComplaint }
+const getAllComplaints = async (req, res) => {
+  try {
+    const complaints = await Complaint.find()
+    res.json(complaints)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
+module.exports = { createComplaint, getComplaints, updateComplaint, getAllComplaints }
