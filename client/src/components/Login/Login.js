@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [role, setRole] = useState('customer')
   const [error, setError] = useState('')
   const navigate = useNavigate()
@@ -43,10 +44,23 @@ function Login() {
           <label>Email</label>
           <input type='email' value={email} onChange={e => setEmail(e.target.value)} required style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
         </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Password</label>
-          <input type='password' value={password} onChange={e => setPassword(e.target.value)} required style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
-        </div>
+        <div style={{ marginBottom: '1rem', position: 'relative' }}>
+  <label>Password</label>
+  <div style={{ position: 'relative' }}>
+    <input 
+      type={showPassword ? 'text' : 'password'} 
+      value={password} 
+      onChange={e => setPassword(e.target.value)} 
+      required 
+      style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem', boxSizing: 'border-box' }} 
+    />
+    <span 
+      onClick={() => setShowPassword(!showPassword)} 
+      style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}>
+      {showPassword ? '🙈' : '👁️'}
+    </span>
+  </div>
+</div>
         <button type='submit' style={{ width: '100%', padding: '0.75rem', background: '#4A90E2', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Login</button>
       </form>
       <p style={{ marginTop: '1rem', textAlign: 'center' }}>Don't have an account? <a href='/register'>Register</a></p>

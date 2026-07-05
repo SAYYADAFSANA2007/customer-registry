@@ -16,14 +16,24 @@ function CustomerDashboard() {
   const headers = { Authorization: `Bearer ${token}` }
 
   useEffect(() => {
-    fetchComplaints()
-  }, [])
+  fetchComplaints()
+  fetchProfile()
+}, [])
 
   const fetchComplaints = async () => {
   try {
     const userId = localStorage.getItem('userId')
     const res = await axios.get(`http://localhost:8000/api/complaints?customerId=${userId}`, { headers })
     setComplaints(res.data)
+  } catch (err) {
+    console.log(err)
+  }
+}
+const fetchProfile = async () => {
+  try {
+    const userId = localStorage.getItem('userId')
+    const res = await axios.get(`http://localhost:8000/api/users/${userId}`, { headers })
+    setProfile({ name: res.data.name, email: res.data.email, phone: res.data.phone || '' })
   } catch (err) {
     console.log(err)
   }

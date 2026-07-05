@@ -7,6 +7,7 @@ function Register() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -41,10 +42,24 @@ function Register() {
           <label>Phone</label>
           <input type='text' name='phone' value={form.phone} onChange={handleChange} style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
         </div>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>Password</label>
-          <input type='password' name='password' value={form.password} onChange={handleChange} required style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
-        </div>
+        <div style={{ marginBottom: '1rem', position: 'relative' }}>
+  <label>Password</label>
+  <div style={{ position: 'relative' }}>
+    <input 
+      type={showPassword ? 'text' : 'password'} 
+     value={form.password}
+     onChange={handleChange}
+     name='password'
+      required 
+      style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem', boxSizing: 'border-box' }} 
+    />
+    <span 
+      onClick={() => setShowPassword(!showPassword)} 
+      style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}>
+      {showPassword ? '🙈' : '👁️'}
+    </span>
+  </div>
+</div>
         <button type='submit' style={{ width: '100%', padding: '0.75rem', background: '#4A90E2', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Register</button>
       </form>
       <p style={{ marginTop: '1rem', textAlign: 'center' }}>Already have an account? <a href='/'>Login</a></p>

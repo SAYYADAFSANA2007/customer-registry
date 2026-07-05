@@ -7,6 +7,7 @@ function AdminDashboard() {
   const [customers, setCustomers] = useState([])
   const [message, setMessage] = useState('')
   const [activeTab, setActiveTab] = useState('complaints')
+  const [showAgentPassword, setShowAgentPassword] = useState(false)
 
   const token = localStorage.getItem('token')
   const headers = { Authorization: `Bearer ${token}` }
@@ -147,7 +148,19 @@ function AdminDashboard() {
     <div style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem' }}>
       <input id="agentName" placeholder="Name" style={{ display: 'block', width: '100%', padding: '0.5rem', marginBottom: '0.5rem' }} />
       <input id="agentEmail" placeholder="Email" style={{ display: 'block', width: '100%', padding: '0.5rem', marginBottom: '0.5rem' }} />
-      <input id="agentPassword" placeholder="Password" type="password" style={{ display: 'block', width: '100%', padding: '0.5rem', marginBottom: '0.5rem' }} />
+      <div style={{ position: 'relative' }}>
+  <input 
+    id="agentPassword" 
+    placeholder="Password" 
+    type={showAgentPassword ? 'text' : 'password'} 
+    style={{ display: 'block', width: '100%', padding: '0.5rem', marginBottom: '0.5rem', boxSizing: 'border-box' }} 
+  />
+  <span 
+    onClick={() => setShowAgentPassword(!showAgentPassword)} 
+    style={{ position: 'absolute', right: '0.75rem', top: '30%', transform: 'translateY(-50%)', cursor: 'pointer' }}>
+    {showAgentPassword ? '🙈' : '👁️'}
+  </span>
+</div>
       <button onClick={async () => {
         const name = document.getElementById('agentName').value
         const email = document.getElementById('agentEmail').value
