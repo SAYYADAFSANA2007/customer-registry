@@ -21,7 +21,13 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const user = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true }).select('-password')
+    const { email, ...updateData } = req.body
+    const user = await Customer.findByIdAndUpdate(
+      req.params.id, 
+      { $set: updateData }, 
+      { new: true }
+    ).select('-password')
+    if (!user) return res.status(404).json({ message: 'User not found' })
     res.json({ message: 'Profile updated', user })
   } catch (err) {
     res.status(500).json({ message: err.message })

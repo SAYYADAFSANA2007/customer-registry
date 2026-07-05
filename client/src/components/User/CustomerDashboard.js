@@ -196,7 +196,19 @@ function CustomerDashboard() {
             <label>Phone</label>
             <input type='text' value={profile.phone} onChange={e => setProfile({ ...profile, phone: e.target.value })} style={{ display: 'block', width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
           </div>
-          <button style={{ width: '100%', padding: '0.75rem', background: '#4A90E2', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Update Profile</button>
+          <button
+  onClick={async () => {
+    const userId = localStorage.getItem('userId')
+    try {
+      await axios.put(`http://localhost:8000/api/users/${userId}`, profile, { headers })
+      setMessage('Profile updated successfully!')
+    } catch (err) {
+      setMessage('Failed to update profile')
+    }
+  }}
+  style={{ width: '100%', padding: '0.75rem', background: '#4A90E2', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+  Update Profile
+</button>
         </div>
       )}
     </div>
