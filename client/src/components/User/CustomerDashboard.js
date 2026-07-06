@@ -23,7 +23,7 @@ function CustomerDashboard() {
   const fetchComplaints = async () => {
   try {
     const userId = localStorage.getItem('userId')
-    const res = await axios.get(`http://localhost:8000/api/complaints?customerId=${userId}`, { headers })
+    const res = await axios.get(`https://customer-registry-backend.onrender.com/api/complaints?customerId=${userId}`, { headers })
     setComplaints(res.data)
   } catch (err) {
     console.log(err)
@@ -32,7 +32,7 @@ function CustomerDashboard() {
 const fetchProfile = async () => {
   try {
     const userId = localStorage.getItem('userId')
-    const res = await axios.get(`http://localhost:8000/api/users/${userId}`, { headers })
+    const res = await axios.get(`https://customer-registry-backend.onrender.com/api/users/${userId}`, { headers })
     setProfile({ name: res.data.name, email: res.data.email, phone: res.data.phone || '' })
   } catch (err) {
     console.log(err)
@@ -41,7 +41,7 @@ const fetchProfile = async () => {
 
   const fetchMessages = async (complaintId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/messages/${complaintId}`, { headers })
+      const res = await axios.get(`https://customer-registry-backend.onrender.com/api/messages/${complaintId}`, { headers })
       setMessages(res.data)
     } catch (err) {
       console.log(err)
@@ -52,7 +52,7 @@ const fetchProfile = async () => {
   e.preventDefault()
   try {
     const userId = localStorage.getItem('userId')
-    await axios.post(`http://localhost:8000/api/complaints?customerId=${userId}`, complaint, { headers })
+    await axios.post(`https://customer-registry-backend.onrender.com/api/complaints?customerId=${userId}`, complaint, { headers })
     setMessage('Complaint submitted successfully!')
     setComplaint({ title: '', description: '' })
     fetchComplaints()
@@ -64,7 +64,7 @@ const fetchProfile = async () => {
   const handleSendMessage = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:8000/api/messages', {
+      await axios.post('https://customer-registry-backend.onrender.com/api/messages', {
         complaint: selectedComplaint._id,
         sender: 'customer',
         message: chatMessage
@@ -78,7 +78,7 @@ const fetchProfile = async () => {
 
   const handleFeedback = async (complaintId) => {
     try {
-      await axios.put(`http://localhost:8000/api/complaints/${complaintId}`, {
+      await axios.put(`https://customer-registry-backend.onrender.com/api/complaints/${complaintId}`, {
         feedback: feedback.comment,
         rating: feedback.rating
       }, { headers })
@@ -210,7 +210,7 @@ const fetchProfile = async () => {
   onClick={async () => {
     const userId = localStorage.getItem('userId')
     try {
-      await axios.put(`http://localhost:8000/api/users/${userId}`, profile, { headers })
+      await axios.put(`https://customer-registry-backend.onrender.com/api/users/${userId}`, profile, { headers })
       setMessage('Profile updated successfully!')
     } catch (err) {
       setMessage('Failed to update profile')

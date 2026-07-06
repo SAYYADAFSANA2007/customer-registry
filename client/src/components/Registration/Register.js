@@ -16,7 +16,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:8000/api/customers/register', form)
+      await axios.post('https://customer-registry-backend.onrender.com/api/customers/register', form)
       setSuccess('Registered successfully! Redirecting to login...')
       setTimeout(() => navigate('/'), 2000)
     } catch (err) {

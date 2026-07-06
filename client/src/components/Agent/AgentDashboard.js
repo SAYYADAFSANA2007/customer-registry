@@ -18,7 +18,7 @@ function AgentDashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/complaints/all', { headers })
+      const res = await axios.get('https://customer-registry-backend.onrender.com/api/complaints/all', { headers })
       setComplaints(res.data.filter(c => c.status === 'in-progress'))
     } catch (err) {
       console.log(err)
@@ -27,7 +27,7 @@ function AgentDashboard() {
 
   const fetchMessages = async (complaintId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/messages/${complaintId}`, { headers })
+      const res = await axios.get(`https://customer-registry-backend.onrender.com/api/messages/${complaintId}`, { headers })
       setMessages(res.data)
     } catch (err) {
       console.log(err)
@@ -36,7 +36,7 @@ function AgentDashboard() {
 
   const handleResolve = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/api/complaints/${id}`, { status: 'resolved' }, { headers })
+      await axios.put(`https://customer-registry-backend.onrender.com/api/complaints/${id}`, { status: 'resolved' }, { headers })
       setMessage('Complaint resolved successfully')
       fetchComplaints()
     } catch (err) {
@@ -46,7 +46,7 @@ function AgentDashboard() {
 
   const handleEscalate = async (id) => {
     try {
-      await axios.put(`http://localhost:8000/api/complaints/${id}`, { status: 'open' }, { headers })
+      await axios.put(`https://customer-registry-backend.onrender.com/api/complaints/${id}`, { status: 'open' }, { headers })
       setMessage('Complaint escalated back to admin')
       fetchComplaints()
     } catch (err) {
@@ -57,7 +57,7 @@ function AgentDashboard() {
   const handleSendMessage = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:8000/api/messages', {
+      await axios.post('https://customer-registry-backend.onrender.com/api/messages', {
         complaint: selectedComplaint._id,
         sender: 'agent',
         message: chatMessage

@@ -20,7 +20,7 @@ function AdminDashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/complaints/all', { headers })
+      const res = await axios.get('https://customer-registry-backend.onrender.com/api/complaints/all', { headers })
       setComplaints(res.data)
     } catch (err) {
       console.log(err)
@@ -29,7 +29,7 @@ function AdminDashboard() {
 
   const fetchAgents = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/agents', { headers })
+      const res = await axios.get('https://customer-registry-backend.onrender.com/api/agents', { headers })
       setAgents(res.data)
     } catch (err) {
       console.log(err)
@@ -38,7 +38,7 @@ function AdminDashboard() {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/users', { headers })
+      const res = await axios.get('https://customer-registry-backend.onrender.com/api/users', { headers })
       setCustomers(res.data)
     } catch (err) {
       console.log(err)
@@ -47,7 +47,7 @@ function AdminDashboard() {
 
   const handleAssign = async (complaintId, agentId) => {
     try {
-      await axios.put(`http://localhost:8000/api/complaints/${complaintId}`, {
+      await axios.put(`https://customer-registry-backend.onrender.com/api/complaints/${complaintId}`, {
         status: 'in-progress',
         agent: agentId
       }, { headers })
@@ -166,7 +166,7 @@ function AdminDashboard() {
         const email = document.getElementById('agentEmail').value
         const password = document.getElementById('agentPassword').value
         try {
-          await axios.post('http://localhost:8000/api/agents/register', { name, email, password })
+          await axios.post('https://customer-registry-backend.onrender.com/api/agents/register', { name, email, password })
           setMessage('Agent registered successfully!')
           fetchAgents()
         } catch (err) {
